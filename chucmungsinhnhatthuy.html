@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <title>Chúc Mừng Sinh Nhật Thủy!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap">
+  <style>
+    :root {
+      --primary-color: #ff6b81;
+      --secondary-color: #ff8e8e;
+      --text-color: #7a2d52;
+      --light-pink: #ffd9e2;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #ffb8c6 0%, #ffd9e2 100%);
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      max-width: 500px;
+      width: 90%;
+      margin: 1rem auto;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(5px);
+    }
+    
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      line-height: 1.3;
+    }
+    
+    /* Gift box section */
+    .gift-section {
+      position: relative;
+      margin: 2rem 0;
+    }
+    
+    .gift-box {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      perspective: 1000px;
+    }
+    
+    @media (max-width: 480px) {
+      .gift-box {
+        width: 180px;
+        height: 180px;
+      }
+    }
+    
+    .gift-box:hover {
+      transform: scale(1.05);
+    }
+    
+    .gift-lid {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      transform-origin: bottom center;
+      transition: transform 1s ease-in-out;
+      z-index: 2;
+    }
+    
+    .gift-lid img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 5px 15px rgba(210, 54, 105, 0.3));
+    }
+    
+    .gift-base {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 1;
+    }
+    
+    .gift-base img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .gift-box::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      z-index: -1;
+      box-shadow: 0 0 20px var(--primary-color);
+    }
+    
+    /* Celebration section (hidden initially) */
+    .celebration-section {
+      display: none;
+      width: 100%;
+      animation: fadeIn 1s ease-out forwards;
+    }
+    
+    .cake-container {
+      position: relative;
+      margin: 1rem 0;
+    }
+    
+    .cake {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      animation: floatUpDown 3s ease-in-out infinite;
+      filter: drop-shadow(0 10px 20px rgba(210, 54, 105, 0.4));
+    }
+    
+    /* Photo strip */
+    .photo-strip {
+      width: 100%;
+      height: 100px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .photo-track {
+      display: flex;
+      position: absolute;
+      left: 0;
+      top: 10px;
+      animation: scrollPhotos 30s linear infinite;
+    }
+    
+    .photo {
+      width: 80px;
+      height: 80px;
+      margin: 0 10px;
+      border-radius: 5px;
+      object-fit: cover;
+      border: 3px solid var(--white);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+    
+    .photo:hover {
+      transform: scale(1.1);
+      z-index: 10;
+    }
+    
+    /* Message section */
+    .message {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-top: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      color: var(--primary-color);
+      transform: scale(0);
+      animation: scaleUp 0.5s ease-out 0.5s forwards;
+      line-height: 1.5;
+      text-align: left;
+    }
+    
+    /* Footer */
+    .made-by {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+    
+    /* Decorative elements */
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .heart {
+      position: absolute;
+      opacity: 0;
+      animation: float 6s ease-in infinite;
+    }
+    
+    /* Candles */
+    .candles {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    
+    @media (max-width: 480px) {
+      .candles {
+        top: -30px;
+        gap: 8px;
+      }
+    }
+    
+    .candle {
+      position: relative;
+      width: 6px;
+      height: 20px;
+      background: linear-gradient(to right, #f5f5f5, #ffffff, #f5f5f5);
+      border-radius: 3px;
+    }
+    
+    @media (max-width: 480px) {
+      .candle {
+        width: 5px;
+        height: 15px;
+      }
+    }
+    
+    .flame {
+      position: absolute;
+      width: 10px;
+      height: 15px;
+      background: linear-gradient(to top, #ff7800, #ffdc00);
+      border-radius: 50% 50% 20% 20%;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px #ff6600, 0 0 20px #ff9900;
+      animation: flicker 0.5s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+    
+    @media (max-width: 480px) {
+      .flame {
+        width: 8px;
+        height: 12px;
+        top: -12px;
+      }
+    }
+    
+    /* Music player */
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 100;
+      transition: transform 0.3s;
+    }
+    
+    .music-player:hover {
+      transform: scale(1.1);
+    }
+    
+    .music-icon {
+      font-size: 24px;
+      color: var(--primary-color);
+    }
+    
+    /* Countdown timer */
+    .countdown {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1000;
+      color: white;
+      font-size: 5rem;
+      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+    
+    .countdown.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .countdown-message {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      color: var(--light-pink);
+    }
+    
+    /* Firework effect */
+    .firework {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 5px rgba(255, 107, 129, 0.8);
+      animation: explode 1s ease-out forwards;
+      opacity: 0;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes scaleUp {
+      0% { transform: scale(0); }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes flicker {
+      0%, 100% { 
+        transform: translateX(-50%) scale(1); 
+        opacity: 1;
+      }
+      50% { 
+        transform: translateX(-50%) scale(0.9, 1.1); 
+        opacity: 0.8;
+      }
+    }
+    
+    @keyframes scrollPhotos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    
+    @keyframes ribbonFly {
+      0% {
+        transform: translateX(-50%) rotate(0deg);
+        top: -100px;
+      }
+      100% {
+        transform: translateX(-50%) rotate(var(--angle));
+        top: var(--distance);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes explode {
+      0% {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .message {
+        padding: 1rem;
+        font-size: 1.1rem;
+      }
+      
+      .countdown {
+        font-size: 3rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .photo {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .countdown {
+        font-size: 2rem;
+      }
+      
+      .countdown-message {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hearts" id="hearts"></div>
+  
+  <!-- Countdown overlay -->
+  <div class="countdown" id="countdown">
+    <div id="countdown-number">3</div>
+    <div class="countdown-message">Chuẩn bị bất ngờ nhé!</div>
+  </div>
+  
+  <div class="container">
+    <!-- Gift section (initial view) -->
+    <div class="gift-section" id="giftSection">
+      <h1 id="title">Hãy mở hộp quà của em đi nào!</h1>
+      <div class="gift-box" id="giftBox">
+        <div class="gift-lid" id="giftLid">
+          <img src="https://img.freepik.com/premium-photo/giftbox_920207-6724.jpg" alt="Nắp hộp quà">
+        </div>
+        <div class="gift-base">
+          <img src="https://img.freepik.com/premium-photo/giftbox_920207-6724.jpg" alt="Thân hộp quà">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Celebration section (shown after opening gift) -->
+    <div class="celebration-section" id="celebrationSection">
+      <h1 id="celebrationTitle">Chúc Mừng Sinh Nhật Thủy!</h1>
+      
+      <div class="cake-container">
+        <div class="candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+        <img src="https://clipground.com/images/free-birthday-clipart-birthday-cake-3.png" alt="Bánh sinh nhật" class="cake">
+      </div>
+      
+      <div class="photo-strip">
+        <div class="photo-track" id="photoTrack">
+          <img src="5761f007-866e-4e0d-9088-53aa8cd86324.jpg" class="photo" alt="Kỷ niệm 1">
+          <img src="a67ab580-39b1-4252-9acc-5991dc63921a.jpg" class="photo" alt="Kỷ niệm 2">
+          <img src="c81193fa-c2b6-463f-b415-2842937daf04.jpg" class="photo" alt="Kỷ niệm 3">
+          <img src="540431d5-f570-4d24-9db8-753e530447f2.jpg" class="photo" alt="Kỷ niệm 4">
+          <img src="20c83192-c65c-48e0-ae6a-9c9e4db73a1d.jpg" class="photo" alt="Kỷ niệm 5">
+          <img src="0e8ada5a-be4b-429c-ba89-7b9c92e69629.jpg" class="photo" alt="Kỷ niệm 6">
+          <img src="7c4e986a-8efb-4910-a57f-218d7e6ea445.jpg" class="photo" alt="Kỷ niệm 7">
+        </div>
+      </div>
+      
+      <div class="message">
+        🎂🌷 Chúc mừng sinh nhật Thủy – 27.06.2025 🌷🎂<br><br>
+        Một ngày thật đặc biệt dành cho một người đáng yêu 💖<br><br>
+        Mong rằng hôm nay và cả những ngày sau, Thủy sẽ luôn:<br>
+        ✨ Gặp điều ngọt ngào như chiếc bánh kem 🍰<br>
+        ✨ Nhận được yêu thương nhẹ nhàng như ánh nắng sớm 🌞<br>
+        ✨ Và mỉm cười thật nhiều như những cánh hoa đang nở 🌸<br><br>
+        
+        Tuổi mới chúc Thủy:<br>
+        🌈 Đủ bình yên để an lòng mỗi sáng<br>
+        🌟 Đủ can đảm để theo đuổi điều mình thích<br>
+        💌 Và đủ yêu thương để thấy mình luôn xứng đáng được trân trọng 💕<br><br>
+        
+        Hãy cứ là Thủy – dịu dàng, kiên cường và luôn tỏa sáng theo cách riêng của mình nhé! 🫶🎀
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Music player -->
+  <div class="music-player" id="musicPlayer">
+    <div class="music-icon">🎵</div>
+    <audio id="bgMusic" loop>
+      <source src="EyesNoseLips-TAEYANG-6293041.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    // Khởi tạo khi trang tải xong
+    document.addEventListener('DOMContentLoaded', function() {
+      initPhotoStrip();
+      createHearts();
+      setupMusicPlayer();
+      
+      // Hiển thị đếm ngược khi trang vừa tải
+      startCountdown();
+    });
+    
+    // Đếm ngược kịch tính
+    function startCountdown() {
+      const countdown = document.getElementById('countdown');
+      const countdownNumber = document.getElementById('countdown-number');
+      
+      countdown.classList.add('active');
+      
+      let count = 3;
+      countdownNumber.textContent = count;
+      
+      const countdownInterval = setInterval(() => {
+        count--;
+        countdownNumber.textContent = count;
+        
+        if (count <= 0) {
+          clearInterval(countdownInterval);
+          countdown.classList.remove('active');
+          
+          // Tạo hiệu ứng pháo hoa sau khi đếm ngược
+          createFireworks(10);
+        }
+      }, 1000);
+    }
+    
+    // Tạo hiệu ứng pháo hoa
+    function createFireworks(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const firework = document.createElement('div');
+          firework.classList.add('firework');
+          
+          // Random position
+          firework.style.left = Math.random() * 100 + 'vw';
+          firework.style.top = Math.random() * 100 + 'vh';
+          
+          // Random color
+          const colors = ['#ff6b81', '#ff8e8e', '#ffb3b3', '#ffd8d8', '#ff4757', '#ff6348'];
+          firework.style.boxShadow = `0 0 10px 5px ${colors[Math.floor(Math.random() * colors.length)]}`;
+          
+          document.body.appendChild(firework);
+          
+          // Remove after animation
+          setTimeout(() => {
+            firework.remove();
+          }, 1000);
+        }, i * 300);
+      }
+    }
+    
+    // Thiết lập trình phát nhạc
+    function setupMusicPlayer() {
+      const musicPlayer = document.getElementById('musicPlayer');
+      const bgMusic = document.getElementById('bgMusic');
+      let isPlaying = false;
+      
+      musicPlayer.addEventListener('click', function() {
+        if (isPlaying) {
+          bgMusic.pause();
+          musicPlayer.innerHTML = '<div class="music-icon">🎵</div>';
+        } else {
+          bgMusic.play();
+          musicPlayer.innerHTML = '<div class="music-icon">🔊</div>';
+        }
+        isPlaying = !isPlaying;
+      });
+      
+      // Tự động bật nhạc khi mở hộp quà
+      document.getElementById('giftBox').addEventListener('click', function() {
+        if (!isPlaying) {
+          // Tạo hiệu ứng đếm ngược trước khi phát nhạc
+          const countdown = document.getElementById('countdown');
+          const countdownNumber = document.getElementById('countdown-number');
+          
+          countdownNumber.textContent = "!!!";
+          countdown.querySelector('.countdown-message').textContent = "Bất ngờ đây!";
+          countdown.classList.add('active');
+          
+          setTimeout(() => {
+            bgMusic.play();
+            musicPlayer.innerHTML = '<div class="music-icon">🔊</div>';
+            countdown.classList.remove('active');
+            
+            // Tạo hiệu ứng pháo hoa lớn
+            createFireworks(20);
+          }, 1500);
+        }
+      });
+    }
+    
+    // Khởi tạo dải ảnh chạy
+    function initPhotoStrip() {
+      const photoTrack = document.getElementById('photoTrack');
+      // Nhân đôi các ảnh để tạo hiệu ứng chạy liên tục
+      photoTrack.innerHTML += photoTrack.innerHTML;
+    }
+    
+    // Tạo trái tim bay
+    function createHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      const colors = ['#ff6b81', '#ff8e8e', '#ffb3b3', '#ffd8d8'];
+      
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤';
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heartsContainer.appendChild(heart);
+      }
+    }
+    
+    // Hiệu ứng mở hộp quà
+    const giftBox = document.getElementById('giftBox');
+    const giftLid = document.getElementById('giftLid');
+    const giftSection = document.getElementById('giftSection');
+    const celebrationSection = document.getElementById('celebrationSection');
+    const title = document.getElementById('title');
+    
+    giftBox.addEventListener('click', function() {
+      // Mở nắp hộp quà
+      giftLid.style.transform = 'rotateX(-110deg) translateY(-50px)';
+      
+      // Tạo ribbon bay ra
+      createRibbons();
+      
+      // Hiển thị phần chúc mừng sau 1s
+      setTimeout(function() {
+        giftSection.style.display = 'none';
+        celebrationSection.style.display = 'block';
+        
+        // Tạo hiệu ứng confetti
+        createConfetti();
+      }, 1000);
+    });
+    
+    // Tạo ribbon bay ra từ hộp quà
+    function createRibbons() {
+      const colors = ['#ff6b81', '#ff8e8e', '#ffb3b3', '#ffd8d8'];
+      
+      for (let i = 0; i < 8; i++) {
+        const ribbon = document.createElement('div');
+        ribbon.classList.add('ribbon');
+        ribbon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        ribbon.style.left = (Math.random() * 60 + 20) + '%';
+        ribbon.style.width = (Math.random() * 15 + 5) + 'px';
+        ribbon.style.height = (Math.random() * 80 + 50) + 'px';
+        ribbon.style.opacity = '1';
+        
+        // Thiết lập biến CSS cho animation
+        const angle = (Math.random() * 60 - 30);
+        const distance = (Math.random() * 200 + 100);
+        ribbon.style.setProperty('--angle', `${angle}deg`);
+        ribbon.style.setProperty('--distance', `${distance}px`);
+        
+        document.body.appendChild(ribbon);
+        
+        // Animation
+        const duration = (Math.random() * 2 + 1);
+        ribbon.style.animation = `ribbonFly ${duration}s ease-out forwards`;
+        
+        // Xóa sau khi animation kết thúc
+        setTimeout(() => {
+          ribbon.remove();
+        }, duration * 1000);
+      }
+    }
+    
+    // Tạo hiệu ứng confetti
+    function createConfetti() {
+      const colors = ['#ff6b81', '#ff8e8e', '#ffb3b3', '#ffd8d8', '#ff4757', '#ff6348', '#ffa502', '#ff7f50'];
+      
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.opacity = '1';
+        confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+        
+        // Random shape
+        if (Math.random() > 0.5) {
+          confetti.style.borderRadius = '50%';
+        }
+        
+        // Random size
+        const size = Math.random() * 10 + 5;
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+        
+        document.body.appendChild(confetti);
+        
+        // Animation
+        const animationDuration = Math.random() * 3 + 2;
+        confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+        
+        // Remove after animation
+        setTimeout(() => {
+          confetti.remove();
+        }, animationDuration * 1000);
+      }
+    }
+  </script>
+</body>
+</html>
